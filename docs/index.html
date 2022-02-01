@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- https://github.com/percentevent/percentage-of-year.com/ -->
+    <title>percentage of the year</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="What percent of the year is complete? What percent of the year is remaining?"
+    />
+    <link rel="canonical" href="https://percentage-of-year.com/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="percentage-of-year.com" />
+    <meta
+      property="og:description"
+      content="What percent of the year is complete? What percent of the year is remaining?"
+    />
+    <meta property="og:url" content="https://percentage-of-year.com/" />
+    <meta property="og:site_name" content="percentage-of-year.com" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:description"
+      content="What percent of the year is complete? What percent of the year is remaining?"
+    />
+    <meta name="twitter:title" content="percentage-of-year.com" />
+    <style>
+      @import url(//fonts.googleapis.com/css?family=Open+Sans:300);
+      .number,
+      h2 {
+        font-weight: 300;
+      }
+      body {
+        margin: 0;
+        font-family: 'Open Sans Regular', Helvetica, Arial, sans-serif;
+        color: rgba(255, 255, 255, 0.88);
+        text-align: center;
+        background: #009fff;
+        background: -webkit-linear-gradient(to bottom, #ec2f4b, #009fff);
+        background: linear-gradient(to bottom, #ec2f4b, #009fff);
+      }
+      article {
+        display: table;
+        width: 100%;
+        height: 100vh;
+      }
+      .container {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .number {
+        margin: 0;
+        font-size: 66px;
+      }
+      h2 {
+        font-size: 19px;
+        letter-spacing: 0.75px;
+      }
+      .spacer {
+        height: 48px;
+      }
+    </style>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-134121946-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-134121946-1');
+    </script>
+  </head>
+  <body>
+    <article>
+      <div class="container">
+        <p class="number" id="percentage-complete"></p>
+        <h2>percentage of the year complete</h2>
+        <div class="spacer"></div>
+        <p class="number" id="percentage-remaining"></p>
+        <h2>percentage of the year remaining</h2>
+      </div>
+    </article>
+    <script type="text/javascript">
+      (function () {
+        var b = document.getElementById('percentage-complete'),
+          c = document.getElementById('percentage-remaining'),
+          d = 6,
+          e = new Date(2022, 0, 1).getTime(),
+          f = new Date(2023, 0, 1).getTime(),
+          g = (i) => {
+            var j = i.event3 - i.event1,
+              k = i.event2 - i.event1,
+              l = i.event3 - i.event2;
+            return { percent_1to2: 100 * (k / j), percent_2to3: 100 * (l / j) };
+          },
+          h = () => {
+            var i = { event1: e, event2: Date.now(), event3: f },
+              j = g(i);
+            (b.innerHTML = j.percent_1to2.toFixed(d)),
+              (c.innerHTML = j.percent_2to3.toFixed(d));
+          };
+        h(), setInterval(h, 1e3);
+      })();
+    </script>
+  </body>
+</html>
