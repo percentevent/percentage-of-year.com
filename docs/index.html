@@ -88,27 +88,45 @@
         <h2>percentage of the year remaining</h2>
       </div>
     </article>
-    <script type="text/javascript">
-      (function () {
-        var b = document.getElementById('percentage-complete'),
-          c = document.getElementById('percentage-remaining'),
-          d = 6,
-          e = new Date(2022, 0, 1).getTime(),
-          f = new Date(2023, 0, 1).getTime(),
-          g = (i) => {
-            var j = i.event3 - i.event1,
-              k = i.event2 - i.event1,
-              l = i.event3 - i.event2;
-            return { percent_1to2: 100 * (k / j), percent_2to3: 100 * (l / j) };
-          },
-          h = () => {
-            var i = { event1: e, event2: Date.now(), event3: f },
-              j = g(i);
-            (b.innerHTML = j.percent_1to2.toFixed(d)),
-              (c.innerHTML = j.percent_2to3.toFixed(d));
-          };
-        h(), setInterval(h, 1e3);
-      })();
-    </script>
-  </body>
+<script>
+(function iife() {
+/* global document */
+const complete = document.getElementById(`percentage-complete`);
+const remaining = document.getElementById(`percentage-remaining`);
+const resolution = 6;
+
+const calculate = ({ event1, event2, event3 }) => {
+  const total = event3 - event1;
+
+  return {
+    percent1to2: 100 * ((event2 - event1) / total),
+    percent2to3: 100 * ((event3 - event2) / total),
+  };
+};
+
+const onTick = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = 0;
+
+  const event1 = new Date(year, month, 1).getTime();
+  const event2 = Date.now();
+  const event3 = new Date(year + 1, month, 1).getTime();
+
+  const result = calculate({
+    event1,
+    event2,
+    event3,
+  });
+
+  complete.innerHTML = result.percent1to2.toFixed(resolution);
+  remaining.innerHTML = result.percent2to3.toFixed(resolution);
+};
+
+onTick();
+
+setInterval(onTick, 1000);
+})();
+</script>
+</body>
 </html>
